@@ -19,12 +19,12 @@ import WsInstrumentation from './ws-instrumentation/ws';
 const init = function (serviceName: string, metricPort: number) {
 
     // Define metrics
-    // const metricExporter = new PrometheusExporter({ port: metricPort }, () => {
-    //     console.log(`scrape: http://localhost:${metricPort}${PrometheusExporter.DEFAULT_OPTIONS.endpoint}`);
-    // });
-    const metricExporter = new CollectorMetricExporter({
-        url: 'http://localhost:4318/v1/metrics'
-    })
+    const metricExporter = new PrometheusExporter({ port: metricPort }, () => {
+        console.log(`scrape: http://localhost:${metricPort}${PrometheusExporter.DEFAULT_OPTIONS.endpoint}`);
+    });
+    // const metricExporter = new CollectorMetricExporter({
+    //     url: 'http://localhost:4318/v1/metrics'
+    // })
     const meter = new MeterProvider({ exporter: metricExporter, interval: 100000 }).getMeter(serviceName);
 
     // Define traces
